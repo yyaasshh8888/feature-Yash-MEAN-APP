@@ -53,7 +53,6 @@ var initGlobalConfigFiles = function (app) {
   config.files = {
     server: {},
   };
-  console.log("", process.mainModule.path);
   glob(
     "C://Users//yashj//OneDrive//Desktop//CODE//MEAN-APP-SETUP//MEAN-APP-SETUP//Server//" +
       "//modules//" +
@@ -64,7 +63,6 @@ var initGlobalConfigFiles = function (app) {
       if (err) {
         console.error("Glob error:", err);
       } else {
-        console.log("MODELS", files);
         files.forEach(function (routePath) {
           require(routePath);
         });
@@ -82,7 +80,6 @@ var initGlobalConfigFiles = function (app) {
       if (err) {
         console.error("Glob error:", err);
       } else {
-        console.log("ROUTES", files);
         files.forEach(function (routePath) {
           app.use("/", require(path.resolve(routePath)));
         });
@@ -98,8 +95,8 @@ module.exports.createDeafultUser = function () {
 
   let defaulUser = new UserModel({
     email: "demo@gmail.com",
-    username: "yash",
-    password: "yash",
+    username: "admin",
+    password: "admin",
   });
   defaulUser.save(function (err, createdUserRecord) {
     if (err) {
