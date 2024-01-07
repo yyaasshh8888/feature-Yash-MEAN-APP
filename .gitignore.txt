@@ -1,0 +1,2 @@
+MEAN-APP-SETUP\AuthDemo\node_modules
+MEAN-APP-SETUP\Server\node_modules
