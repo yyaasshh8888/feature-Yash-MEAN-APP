@@ -1,0 +1,106 @@
+<div class="tableMain col-md-10 offset-md-1">
+  <div class="topMain" style="margin-top: 4em; padding-right: 1%">
+    <div class="col-md-12">
+      <mat-form-field class="text-right" floatLabel="never" color="primary">
+        <span style="display: flex">
+          <mat-icon style="color: #939494">search</mat-icon>
+          <input
+            matInput
+            placeholder="Search"
+            type="text"
+            (keyup)="applyFilter($event)"
+            #input
+          />
+        </span>
+      </mat-form-field>
+
+      <button
+        style="float: right"
+        mat-stroked-button
+        color="primary"
+        matTooltip="Add new user"
+        matTooltipPosition="above"
+        routerLink="/user/create"
+      >
+        <mat-icon>add</mat-icon>
+        Add User
+      </button>
+    </div>
+  </div>
+  <table
+    mat-table
+    #myTable
+    [dataSource]="dataSource"
+    matSort
+    style="width: 100%"
+  >
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button>
+          <mat-icon>person</mat-icon>{{ row.username }}
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.email }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.created | date : "d/M/yyyy hh:mm:ss a" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <div class="action-buttons d-flex">
+          <button
+            mat-icon-button
+            matTooltip="Click to edit"
+            matTooltipPosition="above"
+            [disabled]="row.username == 'admin'"
+            [routerLink]="['/user/edit/', row._id]"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            matTooltip="Click to delete"
+            matTooltipPosition="above"
+            [disabled]="row.username == 'admin'"
+            (click)="deleteUser(row._id, i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="12">No data available.</td>
+    </tr>
+  </table>
+  <!-- preloader -->
+  <div
+    class="d-flex align-items-center justify-content-center"
+    *ngIf="isLoading"
+  >
+    <div
+      class="line-scale-pulse-out d-flex align-items-center justify-content-center"
+    >
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- preloader end-->
+  <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+</div>

@@ -1,0 +1,26 @@
+<div class="row border p-4">
+  <div class="col-md-5">
+    <div class="row">
+      <input
+        type="file"
+        accept="image/*,video/*"
+        #fileHandler
+        (change)="onFileUpload($event)"
+      />
+
+      <mat-icon
+        matTooltip="Clear"
+        matTooltipPosition="below"
+        style="cursor: pointer"
+        *ngIf="url && format"
+        (click)="url = '' || (format = '' || (fileHandler.value = ''))"
+        color="primary"
+        >clear</mat-icon
+      >
+    </div>
+  </div>
+  <div class="col-md-7">
+    <img [src]="url" *ngIf="format == 'image'" height="300" />
+    <video [src]="url" *ngIf="format == 'video'" height="300" controls></video>
+  </div>
+</div>
