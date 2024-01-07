@@ -1,4 +1,14 @@
 <!-- HEADER -->
+<mat-progress-bar
+  *ngIf="loaderService.isLoading | async"
+  mode="indeterminate"
+></mat-progress-bar>
+<div
+  class="spinner-loading-container"
+  *ngIf="loaderService.isSpinnerLoading | async"
+>
+  <mat-spinner class="loading-spinner"></mat-spinner>
+</div>
 <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
 <!-- ROOT -->
 <mat-drawer-container>

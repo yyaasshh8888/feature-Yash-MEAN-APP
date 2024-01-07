@@ -7,22 +7,32 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { delay, finalize, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UserService } from './services/user.service';
+import { LoaderService } from './shared/services/loader.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private us: UserService, private router: Router) {}
+  constructor(
+    private us: UserService,
+    private router: Router,
+    private loaderService: LoaderService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    this.loaderService.isLoading.next(true);
     // emit onStarted event before request execution
 
     if (req.headers.get('noauth')) {
-      return next.handle(req.clone());
+      return next.handle(req.clone()).pipe(
+        finalize(() => {
+          this.stopLoading();
+        })
+      );
     } else {
       let cloneReq: any = req.clone({
         headers: req.headers.set(
@@ -38,9 +48,16 @@ export class AuthInterceptor implements HttpInterceptor {
               this.router.navigateByUrl('/signin');
             }
           }
-        )
+        ),
+        finalize(() => {
+          this.stopLoading();
+        })
       );
     }
+  }
+  // To stop loading
+  stopLoading() {
+    this.loaderService.isLoading.next(false);
   }
 }
 
