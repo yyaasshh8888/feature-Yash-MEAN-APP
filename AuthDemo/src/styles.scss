@@ -6,7 +6,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: monospace, Roboto, "Helvetica Neue", sans-serif;
 }
 .flex-align-end {
   display: flex;
@@ -26,4 +26,7 @@ body {
 }
 .cursor-not-allowed {
   cursor: not-allowed !important;
+}
+.dashboard-text {
+  color: blueviolet;
 }

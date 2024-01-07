@@ -1,1 +1,3 @@
-<p>dashboard works!</p>
+<h2 class="dashboard-text" *ngIf="helperCache.activeUser$ | async as user">
+  Welcome {{ user?.username | titlecase }}!
+</h2>
