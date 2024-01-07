@@ -2,12 +2,11 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 var User = require("../modules/user/server/model/user.server.model");
-
+console.log(User);
 passport.use(
   new localStrategy(
     { usernameField: "username" },
     (username, password, done) => {
-      console.log("test", "\n\n\n");
       User.findOne({ username: username }, (err, userRecord) => {
         if (err) done(err);
         else if (!userRecord) done(null, false, { message: "User not found!" });

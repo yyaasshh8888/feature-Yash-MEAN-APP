@@ -53,17 +53,17 @@ var initGlobalConfigFiles = function (app) {
   config.files = {
     server: {},
   };
+  // The below route should be ideally pwd.cwd()
+  const pwdPath =
+    "C://Users//yashj//OneDrive//Desktop//CODE//MEAN-APP-SETUP//Server//";
   glob(
-    "C://Users//yashj//OneDrive//Desktop//CODE//MEAN-APP-SETUP//MEAN-APP-SETUP//Server//" +
-      "//modules//" +
-      "**" +
-      "//server//model//" +
-      "*",
+    pwdPath + "//modules//" + "**" + "//server//model//" + "*",
     function (err, files) {
       if (err) {
         console.error("Glob error:", err);
       } else {
         files.forEach(function (routePath) {
+          console.log(routePath);
           require(routePath);
         });
       }
@@ -71,11 +71,7 @@ var initGlobalConfigFiles = function (app) {
   );
 
   glob(
-    "C://Users//yashj//OneDrive//Desktop//CODE//MEAN-APP-SETUP//MEAN-APP-SETUP//Server//" +
-      "//modules//" +
-      "**" +
-      "//server//routes//" +
-      "*",
+    pwdPath + "//modules//" + "**" + "//server//routes//" + "*",
     function (err, files) {
       if (err) {
         console.error("Glob error:", err);

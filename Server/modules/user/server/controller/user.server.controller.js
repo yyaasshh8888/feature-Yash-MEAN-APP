@@ -6,16 +6,14 @@ const _ = require("lodash");
  * Send User
  */
 exports.me = function (req, res) {
-  console.log("YASH");
-  res.json({ data: "Yash" });
+  res.json({ data: "Test route is working" });
 };
 /**
  * Authenticate
  */
 exports.authenticate = function (req, res, next) {
-  console.log("IN authenticate");
   passport.authenticate("local", (err, user, info) => {
-    console.log(user, err, info);
+    console.log(err);
     if (err) return res.status(400).json(err);
     else if (user) res.status(200).json({ token: user.generateJwt() });
     else res.status(404).json(info);
@@ -41,7 +39,6 @@ exports.create = function (req, res, next) {
  * User Profile
  */
 exports.userProfile = function (req, res, next) {
-  console.log("\n\n\n77777777777777777777", "USER ", req);
   User.findOne({ _id: req._id }, (err, userRecord) => {
     if (!userRecord) {
       return res
@@ -58,15 +55,12 @@ exports.userProfile = function (req, res, next) {
  * User List
  */
 exports.userList = function (req, res, next) {
-  console.log("\n\nLIST", "USER ", req);
-
   User.find().exec((err, users) => {
     if (err)
       return res
         .status(404)
         .json({ status: false, message: "Error listing users." });
     else {
-      console.log("\n\n\n", users);
       return res.status(200).json({
         users: users,
       });

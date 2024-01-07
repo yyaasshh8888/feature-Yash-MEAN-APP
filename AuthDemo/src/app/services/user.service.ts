@@ -31,7 +31,7 @@ export class UserService {
    * GET list of all users
    */
   getUserList() {
-    return this.http.get(this.apiURL + '/api/user/list11');
+    return this.http.get(this.apiURL + '/api/user/list');
   }
   /**
    * SET TOKEN in localStorage
