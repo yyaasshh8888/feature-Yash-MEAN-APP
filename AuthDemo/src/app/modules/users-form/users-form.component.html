@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="card" [ngStyle]="{ height: userId ? '25em' : '40em' }">
-    <h3>{{ userId ? "EDIT USER" : "CREATE USER" }}</h3>
+    <h3 class="bold">{{ userId ? "EDIT USER" : "CREATE USER" }}</h3>
     <form [formGroup]="userform" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="form-group offset-md-1 col-md-10">
@@ -66,7 +66,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="offset-md-1 col-md-10 mb-3 mt-1" *ngIf="!userId">
+        <div class="offset-md-1 col-md-10 p-1 my-3" *ngIf="!userId">
           <div class="passwordWidgets mda-row" style="text-align: center">
             <div
               class="col-md-3"
@@ -126,7 +126,7 @@
           </div>
         </div>
 
-        <div class="form-group offset-md-1 col-md-10">
+        <div class="form-group offset-md-1 p-2 col-md-10">
           <button type="submit" routerLink="/users" mat-stroked-button>
             Back
           </button>

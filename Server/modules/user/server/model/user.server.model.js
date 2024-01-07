@@ -39,7 +39,7 @@ UserSchema.methods.verifyPassword = function (password) {
 };
 UserSchema.methods.generateJwt = function () {
   return jwt.sign({ _id: this._id }, "SECRET#888", {
-    expiresIn: "1m",
+    expiresIn: "1h",
   });
 };
 

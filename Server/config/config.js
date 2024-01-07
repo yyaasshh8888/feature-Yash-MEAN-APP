@@ -63,7 +63,6 @@ var initGlobalConfigFiles = function (app) {
         console.error("Glob error:", err);
       } else {
         files.forEach(function (routePath) {
-          console.log(routePath);
           require(routePath);
         });
       }

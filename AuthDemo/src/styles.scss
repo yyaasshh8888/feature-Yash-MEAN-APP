@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.flex-align-end {
+  display: flex;
+  align-items: end;
+}
+.flex {
+  display: flex;
+}
+.mat-drawer-content {
+  background-color: #f4f4f4;
+}
+.bold {
+  font-weight: bold !important;
+}
+.w-20 {
+  width: 20rem;
+}
