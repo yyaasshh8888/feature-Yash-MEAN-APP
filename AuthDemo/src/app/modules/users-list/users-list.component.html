@@ -64,7 +64,10 @@
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let row; let i = index">
-          <div class="action-buttons d-flex">
+          <div
+            class="action-buttons d-flex"
+            [class.cursor-not-allowed]="row.username == 'admin'"
+          >
             <button
               mat-icon-button
               matTooltip="Click to edit"
