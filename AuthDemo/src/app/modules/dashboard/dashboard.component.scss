@@ -1,0 +1,31 @@
+gridster {
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.8);
+}
+gridster-item {
+  display: grid !important;
+  grid-template-rows: 1fr 4fr;
+  grid-gap: 0.25rem;
+}
+.drag-handler {
+  background-color: cadetblue;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+.widget-container {
+  padding: 0.25rem;
+  width: 100% !important;
+  height: 100% !important;
+}
+h1 {
+  margin: 0 !important;
+}
+
+.text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

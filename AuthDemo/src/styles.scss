@@ -48,3 +48,7 @@ gridster-item {
   padding: 0.25rem;
   outline: 1px solid black;
 }
+.flex-end {
+  display: flex !important;
+  justify-content: end !important;
+}

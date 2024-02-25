@@ -3,18 +3,20 @@
 </h2>
 <gridster [options]="options">
   <gridster-item
+    class="gridster-item-content"
     [item]="item"
     *ngFor="let item of dashboard"
     (itemChange)="onGridsterChange($event)"
   >
-    <div class="drag-handle">
-      <mat-icon>drag_handle</mat-icon>
+    <div class="drag-handler">
+      <div class="col-md-10">
+        <h1 class="text-overflow">{{ item?._id }}</h1>
+      </div>
+      <div class="col-md-2 flex-end">
+        <mat-icon>open_with</mat-icon>
+      </div>
     </div>
-    <div
-      (drag)="$event.stopPropagation()"
-      (click)="$event.stopPropagation()"
-      class="gridster-item-content"
-    >
+    <div class="widget-container">
       {{ item?._id }}
     </div>
   </gridster-item>
