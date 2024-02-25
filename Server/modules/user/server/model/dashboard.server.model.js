@@ -11,6 +11,12 @@ var DashboardSchema = new Schema({
       ref: "Widget",
     },
   ],
+  name: {
+    type: String,
+  },
+  desc: {
+    type: String,
+  },
   updated: {
     type: Date,
   },

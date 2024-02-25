@@ -27,11 +27,10 @@ export class SignInComponent implements OnInit {
     });
   }
   onSubmit(loginForm: any) {
-    // console.log('\n🚀🚀🚀  loginForm', loginForm.value);
     this.us.authenticate(loginForm.value).subscribe(
       (response: any) => {
         this.us.setToken(response['token']);
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('home');
       },
       (err: any) => {
         alert(err.error.message);

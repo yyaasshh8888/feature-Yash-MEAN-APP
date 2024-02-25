@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="card" [ngStyle]="{ height: editId ? '25em' : '40em' }">
+    <h3 class="bold">{{ editId ? "EDIT DASHBOARD" : "CREATE DASHBOARD" }}</h3>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="form-group offset-md-1 col-md-10">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="text" required />
+            <mat-error *ngIf="f.name.errors?.required"
+              >Name is required
+            </mat-error>
+            <mat-error *ngIf="f.name.errors?.minlength"
+              >Name must contain at least 4 characters
+            </mat-error>
+            <mat-error *ngIf="f.name.errors?.maxlength"
+              >Name should not contain more than 20 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group offset-md-1 col-md-10">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              formControlName="desc"
+              #message
+              maxlength="256"
+              placeholder="Message"
+            />
+            <mat-hint align="start"
+              ><strong>Don't disclose personal info</strong>
+            </mat-hint>
+            <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="form-group offset-md-1 p-2 col-md-10">
+          <button type="submit" routerLink="/dashboards" mat-stroked-button>
+            Back
+          </button>
+          <button
+            type="submit"
+            color="primary"
+            [disabled]="!form.valid"
+            style="float: right"
+            mat-flat-button
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.card {
+  height: 30em;
+  width: 40em;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+mat-form-field {
+  display: block;
+}
+
+.passwordWidgets {
+  border-radius: 2px;
+}
+.passwordWidgets .success {
+  background-color: #e7f4f2;
+  border: 1px solid #07509d;
+  color: #07509d;
+}
+
+.passwordWidgets .widget {
+  // padding: 5px 10px 6px 8px;
+  padding: 2px;
+  border-radius: 2px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.passwordWidgets .error {
+  border: 1px solid #ff5722;
+  color: #ff5722;
+}
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+.passwordWidgets .init {
+  background-color: #e7f4f2;
+  border: 1px solid green;
+  color: green;
+}
+#passCursor {
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var User = mongoose.model("Dashboard");
+var Dashboard = mongoose.model("Dashboard");
 const passport = require("passport");
 const _ = require("lodash");
 
@@ -19,10 +19,10 @@ exports.create = function (req, res, next) {
 };
 
 /**
- * User List
+ * Dashboard List
  */
 exports.dashboardList = function (req, res, next) {
-  User.find().exec((err, listResponse) => {
+  Dashboard.find().exec((err, listResponse) => {
     if (err)
       return res
         .status(404)
@@ -35,10 +35,10 @@ exports.dashboardList = function (req, res, next) {
   });
 };
 /**
- * User Delete
+ * Dashboard Delete
  */
 exports.dashboardDelete = function (req, res, next) {
-  User.findByIdAndRemove(req.params.dashId).exec(function (err, response) {
+  Dashboard.findByIdAndRemove(req.params.dashId).exec(function (err, response) {
     if (err) {
       return res.status(400).json({
         status: false,
@@ -52,25 +52,27 @@ exports.dashboardDelete = function (req, res, next) {
   });
 };
 /**
- * User BY ID
+ * Dashboard BY ID
  */
 exports.dashboardById = function (req, res, next) {
-  User.findById(req.params.dashId).exec(function (err, response) {
-    if (err) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Error finding dashboard." });
-    } else {
-      return res.status(200).send(response);
-    }
-  });
+  Dashboard.findById(req.params.dashId)
+    .populate("widgets")
+    .exec(function (err, response) {
+      if (err) {
+        return res
+          .status(400)
+          .json({ status: false, message: "Error finding dashboard." });
+      } else {
+        return res.status(200).send(response);
+      }
+    });
 };
 /**
- * User BY ID
+ * Dashboard BY ID
  */
 exports.dashboardUpdateById = function (req, res, next) {
   let updatePayload = req.body;
-  User.findOneAndUpdate({ _id: req.params.dashId }, updatePayload, {
+  Dashboard.findOneAndUpdate({ _id: req.params.dashId }, updatePayload, {
     new: true,
   }).exec(function (err, response) {
     if (err) {

@@ -9,6 +9,7 @@ var WidgetSchema = new Schema({
     type: String,
     required: true,
   },
+  name: { type: String },
   cols: {
     type: Number,
   },
@@ -24,6 +25,10 @@ var WidgetSchema = new Schema({
   created: {
     type: Date,
     default: Date.now,
+  },
+  dashId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Dashboard",
   },
 });
 

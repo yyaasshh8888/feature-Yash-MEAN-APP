@@ -1,7 +1,7 @@
 export const menus = [
   {
-    title: 'Dashboard',
-    routerLink: '/dashboard',
+    title: 'Home',
+    routerLink: '/home',
   },
   {
     title: 'Media',
@@ -10,5 +10,9 @@ export const menus = [
   {
     title: 'Users',
     routerLink: 'users',
+  },
+  {
+    title: 'Dashboards',
+    routerLink: 'dashboards',
   },
 ];

@@ -1,20 +1,41 @@
 var mongoose = require("mongoose");
 var Widget = mongoose.model("Widget");
+var Dashboard = mongoose.model("Dashboard");
 const passport = require("passport");
 const _ = require("lodash");
 
 /**
  * Create NEW Widget
  */
-exports.create = function (req, res, next) {
+exports.create = async function (req, res, next) {
   const payload = req.body;
+  payload["widgetType"] = !payload["widgetType"]
+    ? "test"
+    : payload["widgetType"];
 
+  payload.cols = 2;
+  payload.rows = 2;
   let record = new Widget(payload);
 
-  record.save((err, result) => {
+  let dashRecord = await Dashboard.findById({ _id: record.dashId });
+  dashRecord.widgets =
+    dashRecord.widgets == null
+      ? [record._id]
+      : dashRecord.widgets.push(record._id);
+
+  record.save(async (err, result) => {
     if (err) {
       res.status(400).json({ message: getErrorMessage(err) });
-    } else res.status(200).send(payload);
+    } else {
+      let updatedDash = await Dashboard.findOneAndUpdate(
+        { _id: dashRecord._id },
+        dashRecord,
+        {
+          new: true,
+        }
+      );
+      res.status(200).send(payload);
+    }
   });
 };
 
@@ -38,18 +59,23 @@ exports.widgetList = function (req, res, next) {
  * Widget Delete
  */
 exports.widgetDelete = function (req, res, next) {
-  Widget.findByIdAndRemove(req.params.widgetId).exec(function (err, response) {
-    if (err) {
-      return res.status(400).json({
-        status: false,
-        message: "Error deleting Widget " + req.params.widgetId,
-      });
-    } else {
-      return res.status(200).json({
-        message: "Widget deleted successfully",
-      });
+  Widget.findByIdAndRemove(req.params.widgetId, { new: true }).exec(
+    async function (err, response) {
+      if (err) {
+        return res.status(400).json({
+          status: false,
+          message: "Error deleting Widget " + req.params.widgetId,
+        });
+      } else {
+        let deletedWidget = await Dashboard.findByIdAndUpdate(response.dashId, {
+          $pull: { widgets: response._id },
+        });
+        return res.status(200).json({
+          message: "Widget deleted successfully",
+        });
+      }
     }
-  });
+  );
 };
 /**
  * Widget BY ID
@@ -70,7 +96,6 @@ exports.widgetById = function (req, res, next) {
  */
 exports.widgetUpdateById = function (req, res, next) {
   let updatePayload = req.body;
-  console.log(updatePayload, req.params.widgetId);
   Widget.findOneAndUpdate({ _id: req.params.widgetId }, updatePayload, {
     new: true,
   }).exec(function (err, response) {
@@ -81,8 +106,6 @@ exports.widgetUpdateById = function (req, res, next) {
       });
     } else {
       Widget.find().exec(function (err, list) {
-        console.log(list);
-
         return res.status(200).send(response);
       });
     }

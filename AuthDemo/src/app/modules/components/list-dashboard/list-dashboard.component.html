@@ -1,0 +1,123 @@
+<div class="wrapper">
+  <div class="tableMain col-md-10 offset-md-1">
+    <div class="topMain" style="margin-top: 4em">
+      <div class="col-md-12">
+        <mat-form-field
+          class="text-right w-20"
+          floatLabel="never"
+          color="primary"
+        >
+          <span style="display: flex">
+            <mat-icon style="color: #939494">search</mat-icon>
+            <input
+              class="ms-2"
+              matInput
+              placeholder="Search"
+              type="text"
+              (keyup)="applyFilter($event)"
+              #input
+            />
+          </span>
+        </mat-form-field>
+
+        <button
+          style="float: right"
+          mat-stroked-button
+          color="primary"
+          matTooltip="Add new dashboard"
+          matTooltipPosition="above"
+          routerLink="/dashboard/create"
+        >
+          <mat-icon>add</mat-icon>
+          Add Dashboard
+        </button>
+      </div>
+    </div>
+    <table
+      mat-table
+      #myTable
+      [dataSource]="dataSource"
+      matSort
+      style="width: 100%"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="flex">
+            <mat-icon>dashboard</mat-icon>
+            <span class="flex-align-end">{{ row.name }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="desc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Desc</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="flex">
+            <span class="flex-align-end">{{ row.desc }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.created | date : "d/M/yyyy hh:mm:ss a" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <div class="action-buttons d-flex">
+            <button
+              mat-icon-button
+              matTooltip="Click to edit"
+              matTooltipPosition="above"
+              [routerLink]="['/dashboards/edit/', row._id]"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Click to delete"
+              matTooltipPosition="above"
+              (click)="delete(row._id, i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              matTooltip="Click to View"
+              matTooltipPosition="above"
+              [routerLink]="['/dashboards/view', row?._id]"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="12">No data available.</td>
+      </tr>
+    </table>
+    <!-- preloader -->
+    <div
+      class="d-flex align-items-center justify-content-center"
+      *ngIf="isLoading"
+    >
+      <div
+        class="line-scale-pulse-out d-flex align-items-center justify-content-center"
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- preloader end-->
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+  </div>
+</div>

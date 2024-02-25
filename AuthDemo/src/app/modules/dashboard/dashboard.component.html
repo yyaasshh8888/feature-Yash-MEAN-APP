@@ -1,19 +1,32 @@
-<h2 class="dashboard-text" *ngIf="helperCache.activeUser$ | async as user">
-  Welcome {{ user?.username | titlecase }}!
-</h2>
+<div class="flex-space-between">
+  <h2>Dashboard : {{ dashboardDetails?.name }}</h2>
+  <button
+    style="float: right"
+    mat-stroked-button
+    color="primary"
+    matTooltip="Add new widget"
+    matTooltipPosition="above"
+    (click)="addItem()"
+  >
+    <mat-icon>add</mat-icon>
+    Add Widget
+  </button>
+</div>
+<mat-divider></mat-divider>
 <gridster [options]="options">
   <gridster-item
     class="gridster-item-content"
     [item]="item"
-    *ngFor="let item of dashboard"
+    *ngFor="let item of widgets"
     (itemChange)="onGridsterChange($event)"
   >
     <div class="drag-handler">
       <div class="col-md-10">
-        <h1 class="text-overflow">{{ item?._id }}</h1>
+        <h1 class="text-overflow">{{ item?.name }}</h1>
       </div>
       <div class="col-md-2 flex-end">
         <mat-icon>open_with</mat-icon>
+        <mat-icon class="delete" (click)="deleteWidget(item)">delete</mat-icon>
       </div>
     </div>
     <div class="widget-container">

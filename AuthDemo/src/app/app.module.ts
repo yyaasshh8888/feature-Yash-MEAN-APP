@@ -11,9 +11,14 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { ListDashboardComponent } from './modules/components/list-dashboard/list-dashboard.component';
+import { CreateDashComponent } from './modules/components/create-dash/create-dash.component';
+import { EditDashComponent } from './modules/components/edit-dash/edit-dash.component';
+import { FormDashComponent } from './modules/components/form-dash/form-dash.component';
+import { HomeComponent } from './modules/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, SignInComponent],
+  declarations: [AppComponent, SignInComponent, ListDashboardComponent, CreateDashComponent, EditDashComponent, FormDashComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

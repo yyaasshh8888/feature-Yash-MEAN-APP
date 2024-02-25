@@ -29,3 +29,10 @@ h1 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.delete {
+  cursor: pointer;
+}
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
