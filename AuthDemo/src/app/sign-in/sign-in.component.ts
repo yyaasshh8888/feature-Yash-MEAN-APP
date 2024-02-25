@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +18,8 @@ export class SignInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private us: UserService
+    private us: UserService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,10 @@ export class SignInComponent implements OnInit {
         this.router.navigateByUrl('home');
       },
       (err: any) => {
-        alert(err.error.message);
+        this._snackBar.open(err.error.message, 'Dismiss', {
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
       }
     );
   }
