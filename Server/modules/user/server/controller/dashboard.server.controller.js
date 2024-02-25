@@ -38,18 +38,22 @@ exports.dashboardList = function (req, res, next) {
  * Dashboard Delete
  */
 exports.dashboardDelete = function (req, res, next) {
-  Dashboard.findByIdAndRemove(req.params.dashId).exec(function (err, response) {
-    if (err) {
-      return res.status(400).json({
-        status: false,
-        message: "Error deleting dashboard " + req.params.dashId,
-      });
-    } else {
-      return res.status(200).json({
-        message: "Dashboard deleted successfully",
-      });
+  Dashboard.findByIdAndRemove(req.params.dashId, { new: true }).exec(
+    async function (err, response) {
+      if (err) {
+        return res.status(400).json({
+          status: false,
+          message: "Error deleting dashboard " + req.params.dashId,
+        });
+      } else {
+        let Widget = mongoose.model("Widget");
+        let removeList = await Widget.remove({ dashId: response._id });
+        return res.status(200).json({
+          message: "Dashboard deleted successfully",
+        });
+      }
     }
-  });
+  );
 };
 /**
  * Dashboard BY ID

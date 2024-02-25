@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -37,14 +37,7 @@ export class FormDashComponent {
           Validators.maxLength(20),
         ],
       ],
-      desc: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-        ],
-      ],
+      desc: ['', [Validators.maxLength(256)]],
       widgets: [],
     });
   }

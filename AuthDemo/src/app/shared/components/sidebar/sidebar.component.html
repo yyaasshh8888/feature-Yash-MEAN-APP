@@ -5,6 +5,10 @@
     routerLinkActive="list-item-active"
     [routerLink]="menu.routerLink"
     (click)="setTitle(menu.title)"
-    >{{ menu.title }}</a
   >
+    <h2>
+      {{ menu.title }}
+      <mat-divider></mat-divider>
+    </h2>
+  </a>
 </mat-nav-list>
