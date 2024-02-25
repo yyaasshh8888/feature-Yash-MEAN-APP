@@ -6,9 +6,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { GridsterModule } from 'angular-gridster2';
+
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule, GridsterModule],
   exports: [HeaderComponent, FooterComponent, SidebarComponent],
 })
 export class SharedModule {}

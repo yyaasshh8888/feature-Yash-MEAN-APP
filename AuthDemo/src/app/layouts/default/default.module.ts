@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 
 import { DefaultComponent } from './default.component';
 import { DashboardComponent } from '../../modules/dashboard/dashboard.component';
+import { GridsterModule } from 'angular-gridster2';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DashboardComponent } from '../../modules/dashboard/dashboard.component'
     RouterModule,
     MaterialModule,
     SharedModule,
+    GridsterModule,
   ],
 })
 export class DefaultModule {}

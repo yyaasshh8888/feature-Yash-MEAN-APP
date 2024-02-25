@@ -1,3 +1,21 @@
 <h2 class="dashboard-text" *ngIf="helperCache.activeUser$ | async as user">
   Welcome {{ user?.username | titlecase }}!
 </h2>
+<gridster [options]="options">
+  <gridster-item
+    [item]="item"
+    *ngFor="let item of dashboard"
+    (itemChange)="onGridsterChange($event)"
+  >
+    <div class="drag-handle">
+      <mat-icon>drag_handle</mat-icon>
+    </div>
+    <div
+      (drag)="$event.stopPropagation()"
+      (click)="$event.stopPropagation()"
+      class="gridster-item-content"
+    >
+      {{ item?._id }}
+    </div>
+  </gridster-item>
+</gridster>
